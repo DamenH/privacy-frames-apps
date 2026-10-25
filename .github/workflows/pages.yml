@@ -1,25 +1,49 @@
-name: Publish test applications
+name: Publish trusted application runtime
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      host_commit:
+        description: Tested full host commit (otherwise runtime-host-ref.txt)
+        required: false
+        type: string
 permissions:
   contents: read
 concurrency:
-  group: apps-pages
+  group: runtime-pages
   cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Resolve pinned host revision
+        id: revision
+        env:
+          REQUESTED_COMMIT: ${{ inputs.host_commit }}
+        run: |
+          revision="${REQUESTED_COMMIT:-$(cat runtime-host-ref.txt)}"
+          [[ "$revision" =~ ^[a-f0-9]{40}$ ]] || exit 1
+          echo "commit=$revision" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v6
+        with:
+          repository: DamenH/privacy-frames
+          ref: ${{ steps.revision.outputs.commit }}
+          path: host
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
-      - run: npm run build
+          cache: npm
+          cache-dependency-path: host/package-lock.json
+      - run: npm ci
+        working-directory: host
+      - run: npm run build:production
+        working-directory: host
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: host/dist-runtime
   deploy:
     if: vars.PAGES_ENABLED == 'true'
     needs: build

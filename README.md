@@ -9,7 +9,15 @@ Independent applications and hostile fixtures for the Privacy Frames host.
 - `apps/adversary`: context, storage, network and navigation escape attempts, plus unrestricted controls.
 - `apps/ordinary`: conventional precache PWA with no Privacy Frames manifest.
 
-Run `npm run build` to produce the static Pages artifact in `dist/`. The workflow publishes it when `PAGES_ENABLED=true`. The Pages custom domain is configured as `pf-apps.damenh.com` and is awaiting DNS. Keeping it configured ensures the default github.io publisher URL redirects away from the host origin. Do not serve the hostile examples on the host's github.io origin without this domain separation.
+The Pages site at `pf-apps.damenh.com` publishes the **trusted application runtime**,
+not these unrestricted test applications. Its workflow reads `runtime-host-ref.txt`,
+checks out that exact tested revision of `DamenH/privacy-frames`, and publishes only
+its `dist-runtime/` artifact. Host implementation source stays in that repository.
+
+`npm run build` builds publisher fixtures into `dist/` for independent hosting.
+Do not deploy that directory to the trusted runtime origin. Existing publisher
+subdomains remain separate; raw GitHub URLs can also supply CORS-readable fixtures.
+The generic document fixture is at `apps/ordinary/document/index.html`.
 
 The canonical manager is https://pf.damenh.com/. Paste https://pf-notes.damenh.com/, https://pf-image.damenh.com/, https://pf-resources.damenh.com/, https://pf-adversary.damenh.com/, https://pf-adversary.damenh.com/playground/ or https://pf-ordinary.damenh.com/ to install examples. `npm run build:publishers` prepares their separate static custom-domain deployments; the Wrangler configurations are in `deployment/`. There is no application backend. The unrestricted playground comparison is at https://pf-adversary.damenh.com/playground/index.html.
 
