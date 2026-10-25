@@ -10,7 +10,7 @@ Independent applications and hostile fixtures for the Privacy Frames host.
 
 Run `npm run build` to produce the static Pages artifact in `dist/`. The workflow publishes it when `PAGES_ENABLED=true`. The Pages custom domain is configured as `pf-apps.damenh.com` and is awaiting DNS. Keeping it configured ensures the default github.io publisher URL redirects away from the host origin. Do not serve the hostile examples on the host's github.io origin without this domain separation.
 
-Install directly from the public repository by pasting `https://raw.githubusercontent.com/DamenH/privacy-frames-apps/main/apps/notes/` into the host (replace `notes` with another application directory). This works without the custom domain. The existing unrestricted playground comparison is at https://pf-adversary.damenh.com/playground/. Each directory contains `app.json` with this format:
+Install directly from the public repository by pasting `https://raw.githubusercontent.com/DamenH/privacy-frames-apps/main/apps/notes/` into the host (replace `notes` with another application directory). This works without the custom domain. The existing unrestricted playground comparison is at https://pf-adversary.damenh.com/playground/index.html. Each directory contains `app.json` with this format:
 
 ```json
 {"format":1,"id":"notes","name":"Private notes","entry":"index.html","resources":["index.html","app.css","app.js"]}
