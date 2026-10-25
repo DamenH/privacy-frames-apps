@@ -1,0 +1,11 @@
+{
+  "format": 1,
+  "id": "notes",
+  "name": "Private notes",
+  "entry": "index.html",
+  "resources": [
+    "index.html",
+    "app.css",
+    "app.js"
+  ]
+}

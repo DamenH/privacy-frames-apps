@@ -1,0 +1,11 @@
+{
+  "format": 1,
+  "id": "image",
+  "name": "Pixel workshop",
+  "entry": "index.html",
+  "resources": [
+    "index.html",
+    "app.css",
+    "app.js"
+  ]
+}

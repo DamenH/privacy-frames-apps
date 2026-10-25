@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "id": "adversary",
+  "name": "Boundary laboratory",
+  "entry": "index.html",
+  "resources": [
+    "index.html",
+    "app.css",
+    "app.js",
+    "worklet.js"
+  ]
+}
