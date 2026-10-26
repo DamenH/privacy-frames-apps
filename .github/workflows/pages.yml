@@ -3,11 +3,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      host_commit:
-        description: Tested full host commit (otherwise runtime-host-ref.txt)
-        required: false
-        type: string
 permissions:
   contents: read
 concurrency:
@@ -18,12 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Resolve pinned host revision
+      - name: Read tested source revision
         id: revision
-        env:
-          REQUESTED_COMMIT: ${{ inputs.host_commit }}
         run: |
-          revision="${REQUESTED_COMMIT:-$(cat runtime-host-ref.txt)}"
+          revision="$(cat runtime-host-ref.txt)"
           [[ "$revision" =~ ^[a-f0-9]{40}$ ]] || exit 1
           echo "commit=$revision" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v6
@@ -38,8 +31,10 @@ jobs:
           cache-dependency-path: host/package-lock.json
       - run: npm ci
         working-directory: host
-      - run: npm run build:production
+      - run: npm run build
         working-directory: host
+        env:
+          HOST_ROLE: runtime
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

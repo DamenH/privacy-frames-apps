@@ -1,1 +1,0 @@
-{"name":"privacy-frames-test-applications","private":true,"type":"module","scripts":{"build":"node build.mjs","build:publishers":"node deployment/build.mjs"}}
