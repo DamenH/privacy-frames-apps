@@ -32,3 +32,8 @@ Resources must permit credential-free cross-origin reads. List every installed r
 The ordinary example instead has a standard web manifest and a `sw.js` precache installation. Its original-root URLs are intended for its independent publisher origin. Pitch Training is a separate compatibility target at https://damenh.github.io/pitch-training/; it does not depend on this example convention or a host manifest.
 
 Opening an application directly runs it unrestricted. The adversarial app is intended to attempt operations that the installed runtime must reject. Its local network controls use a loopback diagnostic receiver; when hosted, disclosure attempts target its publisher origin. Use diagnostic values only.
+
+The generic document fixture is also served as a normal CORS-readable website at
+https://pf-ordinary.damenh.com/document/index.html. It exercises base URLs, nested
+CSS, document classes and publisher manifest inheritance without publisher-specific
+installation code.
