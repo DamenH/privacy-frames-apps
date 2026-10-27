@@ -21,7 +21,7 @@ jobs:
           echo "commit=$revision" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v6
         with:
-          repository: DamenH/privacy-frames
+          repository: privacy-frames/host
           ref: ${{ steps.revision.outputs.commit }}
           path: host
       - uses: actions/setup-node@v6
